@@ -4,7 +4,6 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 
 public interface StringCompareService extends Remote{
+	public int getScore(String s1, String s2, String algo) throws RemoteException;
 
-	public Message getMessage() throws RemoteException;
-	public int getScore(String s1, String s2) throws RemoteException;
 }
