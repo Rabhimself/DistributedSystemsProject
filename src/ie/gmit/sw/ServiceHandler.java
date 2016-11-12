@@ -24,9 +24,9 @@ public class ServiceHandler extends HttpServlet {
 	
 	private String remoteHost = null;
 	private volatile static long jobNumber = 0;
-	private static Map<String, Job> jobMap = new ConcurrentHashMap<String,Job>();
+	private static Map<String, Resultator> outMap = new ConcurrentHashMap<String,Resultator>();
 	private static BlockingQueue<Runnable> jobQueue = new LinkedBlockingQueue<Runnable>();
-	private static StringCompareExecutor executor = new StringCompareExecutor(1, 2, 15000, TimeUnit.MILLISECONDS, jobQueue);
+	private static RequestExecutor executor = new RequestExecutor(1, 2, 15000, TimeUnit.MILLISECONDS, jobQueue);
 	
 
 	public void init() throws ServletException {
@@ -35,13 +35,13 @@ public class ServiceHandler extends HttpServlet {
 	}
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		StringCompareService scs = null;
+		StringService scs = null;
 		resp.setContentType("text/html");
 		PrintWriter out = resp.getWriter();
 			
 				
 		try {
-			scs = (StringCompareService) Naming.lookup("rmi://"+remoteHost+":1099/StringCompareService");
+			scs = (StringService) Naming.lookup("rmi://"+remoteHost+":1099/StringCompareService");
 		} catch (NotBoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -51,19 +51,21 @@ public class ServiceHandler extends HttpServlet {
 		String s = req.getParameter("txtS");
 		String t = req.getParameter("txtT");
 		String taskNumber = req.getParameter("frmTaskNumber");
+		String score = null;
 		
-		int score = -1;
 		if (taskNumber == null){
+			
 			taskNumber = new String("T" + jobNumber);
 			jobNumber++;
-			Job j = new Job(s, t, taskNumber, algorithm);
-			jobMap.put(taskNumber, j);
-			executor.execute(new StringCompareWorker(j, scs));
+			Request r = new Request(s,t,taskNumber,algorithm);
+			executor.execute(new RequestWorker(r, scs, outMap));			
 		}else{
-			Job j = jobMap.get(taskNumber);
-			if(j.isComplete())
-			{
-				score = j.getScore();
+			System.out.println(outMap.containsKey(taskNumber));
+			Resultator r = outMap.get(taskNumber);
+			System.out.println(r);
+			if(r.isProcessed()){
+				score = r.getResult();
+				System.out.println("Score set");
 			}
 		}
 		
@@ -80,7 +82,7 @@ public class ServiceHandler extends HttpServlet {
 		out.print("<br>Algorithm: " + algorithm);		
 		out.print("<br>String <i>s</i> : " + s);
 		out.print("<br>String <i>t</i> : " + t);
-		if(score != -1){
+		if(score != null){
 			out.print("<br>Distance: " + score);
 		}
 		
@@ -94,7 +96,7 @@ public class ServiceHandler extends HttpServlet {
 		out.print("</html>");	
 		
 		out.print("<script>");
-		if(score == -1)
+		if(score == null)
 			out.print("var wait = setTimeout(\"document.frmRequestDetails.submit();\", 10000);");
 		out.print("</script>");
 	}
