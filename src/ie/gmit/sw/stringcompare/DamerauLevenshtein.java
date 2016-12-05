@@ -1,4 +1,4 @@
-package ie.gmit.sw;
+package ie.gmit.sw.stringcompare;
 
 public class DamerauLevenshtein implements StringComparable{
     public String distance(String s, String t) {

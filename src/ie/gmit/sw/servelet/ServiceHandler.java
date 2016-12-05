@@ -1,4 +1,4 @@
-package ie.gmit.sw;
+package ie.gmit.sw.servelet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -15,6 +15,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import ie.gmit.sw.stringcompare.Resultator;
+import ie.gmit.sw.stringcompare.StringService;
 
 public class ServiceHandler extends HttpServlet {
 	/**

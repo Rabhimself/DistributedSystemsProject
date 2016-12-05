@@ -1,9 +1,9 @@
-package ie.gmit.sw;
+package ie.gmit.sw.stringcompare;
 
 import java.rmi.Naming;
 import java.rmi.registry.LocateRegistry;
 
-public class StringServiceRunner{
+public class Servant{
 	
 		public static void main(String[] args) throws Exception{
 			

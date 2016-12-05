@@ -1,4 +1,4 @@
-package ie.gmit.sw;
+package ie.gmit.sw.servelet;
 
 public class Request {
 	private String s1;

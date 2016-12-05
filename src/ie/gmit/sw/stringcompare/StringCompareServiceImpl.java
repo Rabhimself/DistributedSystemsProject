@@ -1,4 +1,4 @@
-package ie.gmit.sw;
+package ie.gmit.sw.stringcompare;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -9,24 +9,23 @@ import java.util.Map;
 public class StringCompareServiceImpl extends UnicastRemoteObject implements StringService{
 	
 	private static final long serialVersionUID = 4882785461053507547L;
-	private Map<String, StringComparable> algos = new HashMap<String, StringComparable>();
+	private Map<String, Algorithms> algos = new HashMap<String, Algorithms>();
 	
 	
 	////////////////////////////////////
 	//quick and dirty, make this nicer//
 	////////////////////////////////////
 	public StringCompareServiceImpl() throws RemoteException{
-		System.out.println("asdfasdfasdfasdf");
-		algos.put("damerau-levenshtein distance", new DamerauLevenshtein());
-		algos.put("hamming distance", new Hamming());
-		algos.put("levenshtein distance", new Levenshtein());
+		for(Algorithms a : Algorithms.values()){
+			algos.put(a.getName(), a);
+		}
 	}
 	///////////////////////////////////
 	
 	
 	@Override
 	public Resultator compare(String s1, String s2, String alg){
-		StringComparable algo = algos.get(alg.toLowerCase());
+		StringComparable algo = algos.get(alg.toLowerCase()).getNewInstance();
 		Resultator r = null;
 		try {
 			r = new ResultatorImpl();

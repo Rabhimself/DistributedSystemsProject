@@ -1,7 +1,10 @@
-package ie.gmit.sw;
+package ie.gmit.sw.servelet;
 
 import java.rmi.RemoteException;
 import java.util.Map;
+
+import ie.gmit.sw.stringcompare.Resultator;
+import ie.gmit.sw.stringcompare.StringService;
 
 public class RequestWorker implements Runnable {
 

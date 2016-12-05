@@ -17,7 +17,7 @@
 
   <servlet>
     <servlet-name>service-request-handler</servlet-name>
-    <servlet-class>ie.gmit.sw.ServiceHandler</servlet-class>
+    <servlet-class>ie.gmit.sw.servelet.ServiceHandler</servlet-class>
     <load-on-startup>0</load-on-startup>
   </servlet>
   

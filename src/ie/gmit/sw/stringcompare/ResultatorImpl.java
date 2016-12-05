@@ -1,4 +1,4 @@
-package ie.gmit.sw;
+package ie.gmit.sw.stringcompare;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;

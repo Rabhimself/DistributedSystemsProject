@@ -1,4 +1,4 @@
-package ie.gmit.sw;
+package ie.gmit.sw.stringcompare;
 
 public class Levenshtein implements StringComparable{
     public String distance(String s, String t) {

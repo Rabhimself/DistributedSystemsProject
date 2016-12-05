@@ -1,4 +1,4 @@
-package ie.gmit.sw;
+package ie.gmit.sw.servelet;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
