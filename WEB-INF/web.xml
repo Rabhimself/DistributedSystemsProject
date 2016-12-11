@@ -5,24 +5,24 @@
     "http://java.sun.com/dtd/web-app_2_3.dtd">
 
 <web-app>
-  <display-name>Software Development Year 4 - Distributed Systems</display-name>
-  <description>
-     2016 Assignment - An Asynchronous RMI String Comparison Service
-  </description>
+	<display-name>Software Development Year 4 - Distributed Systems</display-name>
+	<description>
+		2016 Assignment - An Asynchronous RMI String Comparison Service
+	</description>
 
-  <context-param>
-    <param-name>RMI_SERVER</param-name>
-    <param-value>127.0.0.1</param-value>
-  </context-param>
+	<context-param>
+		<param-name>RMI_SERVER</param-name>
+		<param-value>rmi://127.0.0.1:1099/StringCompareService</param-value>
+	</context-param>
 
-  <servlet>
-    <servlet-name>service-request-handler</servlet-name>
-    <servlet-class>ie.gmit.sw.servelet.ServiceHandler</servlet-class>
-    <load-on-startup>0</load-on-startup>
-  </servlet>
-  
-  <servlet-mapping>
-    <servlet-name>service-request-handler</servlet-name>
-    <url-pattern>/doProcess</url-pattern>
-  </servlet-mapping>
+	<servlet>
+		<servlet-name>service-request-handler</servlet-name>
+		<servlet-class>ie.gmit.sw.servelet.ServiceHandler</servlet-class>
+		<load-on-startup>0</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>service-request-handler</servlet-name>
+		<url-pattern>/doProcess</url-pattern>
+	</servlet-mapping>
 </web-app>

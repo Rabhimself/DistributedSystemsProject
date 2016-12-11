@@ -2,12 +2,14 @@ package ie.gmit.sw.stringcompare;
 
 import java.rmi.RemoteException;
 
+//Runnable implementation that calls the actual .distance() method of the algorithm passed to it
+//calls thread.sleep() to simulate a log process time.
 public class AlgorithmWorker implements Runnable {
-
-	Resultator r;
-	StringComparable algo;
-	String s1;
-	String s2;
+	
+	private Resultator r;
+	private StringComparable algo;
+	private String s1;
+	private String s2;
 
 	public AlgorithmWorker(Resultator r, StringComparable algo, String s1, String s2) {
 		this.r = r;
@@ -19,17 +21,16 @@ public class AlgorithmWorker implements Runnable {
 	@Override
 	public void run() {
 		try {
-			r.setResult(algo.distance(s1, s2));
 			try {
+				//simulate a long processing time
 				Thread.sleep(5000);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			//set the result and flip it to processed
+			r.setResult(algo.distance(s1, s2));
 			r.setProcessed();
-			System.out.println(r + "is processed");
 		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

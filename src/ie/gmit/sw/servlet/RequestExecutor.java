@@ -1,9 +1,11 @@
-package ie.gmit.sw.servelet;
+package ie.gmit.sw.servlet;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
+//only extended for overriding the before and after execute methods
+//for testing purposes you can modify the pool sizes in the service handler class, or just hardcode your values into the super() call
 public class RequestExecutor extends ThreadPoolExecutor {
  
     public RequestExecutor(int corePoolSize, int maximumPoolSize,
@@ -11,7 +13,7 @@ public class RequestExecutor extends ThreadPoolExecutor {
         super(corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue);
     }   
     
-    //Might use these for printing thread status in console////////
+    //These are only for printing thread status in console////////
     @Override
     protected void beforeExecute(Thread t, Runnable r) {
         super.beforeExecute(t, r);
